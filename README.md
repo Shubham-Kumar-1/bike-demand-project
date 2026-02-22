@@ -34,7 +34,9 @@ Shubham Kumar
 
 ## Structure
 bike-demand-project/
+
 │
+
 ├── app.py
 
 ├── train_model.py
