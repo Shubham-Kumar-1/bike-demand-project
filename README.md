@@ -36,15 +36,25 @@ Shubham Kumar
 bike-demand-project/
 │
 ├── app.py
+
 ├── train_model.py
+
 ├── model.pkl
+
 ├── data.csv
+
 ├── README.md
+
 ├── requirements.txt
+
 │
 ├── static/
+
 │     ├── style.css
+
 │     └── script.js
-│
+
 └── templates/
+
       └── index.html
+      
