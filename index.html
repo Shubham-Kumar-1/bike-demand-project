@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Bike Demand Prediction</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+
+<div class="container">
+    <h1>🚴 Rental Bike Demand Prediction</h1>
+    <p>Predict hourly bike demand using Machine Learning</p>
+
+    <form action="/predict" method="post" onsubmit="return validateForm()">
+        <div class="input-group">
+            <input type="number" name="hour" placeholder="Hour (0-23)" required>
+        </div>
+
+        <div class="input-group">
+            <input type="number" name="temperature" placeholder="Temperature (°C)" required>
+        </div>
+
+        <div class="input-group">
+            <input type="number" name="humidity" placeholder="Humidity (%)" required>
+        </div>
+
+        <div class="input-group">
+            <input type="number" name="windspeed" placeholder="Wind Speed (km/h)" required>
+        </div>
+
+        <button type="submit">Predict Demand</button>
+    </form>
+
+    {% if prediction_text %}
+        <div class="result">
+            <h2>{{ prediction_text }}</h2>
+        </div>
+    {% endif %}
+</div>
+
+<script src="{{ url_for('static', filename='script.js') }}"></script>
+
+</body>
+</html>
