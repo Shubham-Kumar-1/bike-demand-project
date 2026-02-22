@@ -31,3 +31,20 @@ This project predicts hourly bike rental demand using Machine Learning (Random F
 
 ## 🔹 Author
 Shubham Kumar
+
+## Structure
+bike-demand-project/
+│
+├── app.py
+├── train_model.py
+├── model.pkl
+├── data.csv
+├── README.md
+├── requirements.txt
+│
+├── static/
+│     ├── style.css
+│     └── script.js
+│
+└── templates/
+      └── index.html
