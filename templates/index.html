@@ -1,43 +1,116 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <title>Bike Demand Prediction</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BikePulse | Demand Predictor</title>
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <!-- Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <!-- Styles -->
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
+    <div class="bg-overlay"></div>
+    
+    <main class="main-wrapper">
+        <header class="header">
+            <div class="logo">
+                <i data-lucide="bike" class="logo-icon"></i>
+                <h1>Bike<span>Pulse</span></h1>
+            </div>
+            <p class="subtitle">AI-Powered Hourly Demand Analytics</p>
+        </header>
 
-<div class="container">
-    <h1>🚴 Rental Bike Demand Prediction</h1>
-    <p>Predict hourly bike demand using Machine Learning</p>
+        <section class="dashboard">
+            <div class="form-container glass-panel">
+                <div class="panel-header">
+                    <i data-lucide="settings-2"></i>
+                    <h2>Predictor Input</h2>
+                </div>
+                
+                <form action="/predict" method="post" class="predict-form" id="predictionForm">
+                    <div class="input-grid">
+                        <div class="input-field">
+                            <label for="hour">
+                                <i data-lucide="clock"></i> Hour (0-23)
+                            </label>
+                            <input type="number" name="hour" id="hour" min="0" max="23" placeholder="e.g. 14" required>
+                        </div>
 
-    <form action="/predict" method="post" onsubmit="return validateForm()">
-        <div class="input-group">
-            <input type="number" name="hour" placeholder="Hour (0-23)" required>
-        </div>
+                        <div class="input-field">
+                            <label for="temperature">
+                                <i data-lucide="thermometer"></i> Temperature (°C)
+                            </label>
+                            <input type="number" step="0.1" name="temperature" id="temperature" placeholder="e.g. 24.5" required>
+                        </div>
 
-        <div class="input-group">
-            <input type="number" name="temperature" placeholder="Temperature (°C)" required>
-        </div>
+                        <div class="input-field">
+                            <label for="humidity">
+                                <i data-lucide="droplets"></i> Humidity (%)
+                            </label>
+                            <input type="number" name="humidity" id="humidity" min="0" max="100" placeholder="e.g. 45" required>
+                        </div>
 
-        <div class="input-group">
-            <input type="number" name="humidity" placeholder="Humidity (%)" required>
-        </div>
+                        <div class="input-field">
+                            <label for="windspeed">
+                                <i data-lucide="wind"></i> Wind Speed (km/h)
+                            </label>
+                            <input type="number" step="0.1" name="windspeed" id="windspeed" placeholder="e.g. 12.0" required>
+                        </div>
+                    </div>
 
-        <div class="input-group">
-            <input type="number" name="windspeed" placeholder="Wind Speed (km/h)" required>
-        </div>
+                    <button type="submit" class="submit-btn">
+                        <span>Predict Demand</span>
+                        <i data-lucide="arrow-right"></i>
+                    </button>
+                </form>
+            </div>
 
-        <button type="submit">Predict Demand</button>
-    </form>
+            <div class="result-container">
+                {% if prediction_text %}
+                    <div class="result-card glass-panel animate-reveal">
+                        <div class="panel-header">
+                            <i data-lucide="bar-chart-3"></i>
+                            <h2>Analysis Result</h2>
+                        </div>
+                        <div class="prediction-value">
+                            <span class="count">{{ prediction_text.split(': ')[1] }}</span>
+                            <span class="label">Estimated Bikes</span>
+                        </div>
+                        <div class="prediction-status">
+                            <i data-lucide="trending-up"></i>
+                            <span>Based on environmental factors</span>
+                        </div>
+                    </div>
+                {% else %}
+                    <div class="info-card glass-panel">
+                        <div class="panel-header">
+                            <i data-lucide="info"></i>
+                            <h2>Quick Guide</h2>
+                        </div>
+                        <ul class="guide-list">
+                            <li><i data-lucide="check-circle-2"></i> Enter environmental conditions</li>
+                            <li><i data-lucide="check-circle-2"></i> Click predict for AI estimation</li>
+                            <li><i data-lucide="check-circle-2"></i> Results are generated instantly</li>
+                        </ul>
+                    </div>
+                {% endif %}
+            </div>
+        </section>
 
-    {% if prediction_text %}
-        <div class="result">
-            <h2>{{ prediction_text }}</h2>
-        </div>
-    {% endif %}
-</div>
+        <footer class="footer">
+            <p>&copy; 2026 BikePulse AI. All rights reserved.</p>
+        </footer>
+    </main>
 
-<script src="{{ url_for('static', filename='script.js') }}"></script>
-
+    <script src="{{ url_for('static', filename='script.js') }}"></script>
+    <script>
+        // Initialize Lucide icons
+        lucide.createIcons();
+    </script>
 </body>
 </html>
